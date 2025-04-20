@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+.env/
+.venv/
+ENV/
+env.bak/
+env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# DVC
+# Keep .dvc files and .dvcignore, ignore DVC-tracked outputs
+/data/*
+!/data/.gitignore
+!/data/README.md
+!*.dvc
+!.dvcignore
+
+# Jupyter notebooks output (optional)
+notebooks/*.nbconvert.ipynb
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+
+# Images/output (optional, if generated files not needed in repo)
+images/*.png
+images/*.jpg
+images/*.jpeg
+images/*.gif
+
+# google drive service account
+gdrive-sa.json
