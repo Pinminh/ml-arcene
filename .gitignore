@@ -39,6 +39,7 @@ Thumbs.db
 
 # Jupyter notebooks output (optional)
 notebooks/*.nbconvert.ipynb
+output/
 
 # Logs and temp files
 *.log
