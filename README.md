@@ -1,7 +1,8 @@
-# Machine Learning Project: Arcene Dataset Analysis
+# Machine Learning Project: Swarm Behaviour Analysis
 
 ## 1. Introduction
-The Arcene dataset, sourced from the UCI Machine Learning Repository ([Arcene Dataset](https://archive.ics.uci.edu/ml/datasets/Arcene)), is a high-dimensional dataset designed to distinguish cancer versus normal patterns from mass-spectrometric data. It was part of the NIPS 2003 feature selection challenge, featuring 900 instances and 10,000 features, including 7,000 real features and 3,000 probe features with no predictive power. This project aims to:
+Read .dvc/README.md to pull the dataset to your local data/.
+The Swarm Behaviour, sourced from the UCI Machine Learning Repository ([Swarm Behaviour](https://archive.ics.uci.edu/dataset/524/swarm+behaviour)), is a high-dimensional dataset designed to simulate movements of boids in swarm, featuring 24,016 instances and 2,400 features. This project aims to:
 - Compare the performance of decision trees and Support Vector Machines (SVMs) on the original dataset.
 - Apply feature selection methods to reduce dimensionality and evaluate their impact.
 - Implement ensemble methods (bagging and boosting) to enhance model performance.
@@ -11,12 +12,12 @@ The high dimensionality and presence of irrelevant features make feature selecti
 
 ## 2. Data Exploration and Preprocessing
 ### 2.1 Dataset Overview
-The Arcene dataset consists of:
-- **Instances**: 900 (100 training, 100 validation, 700 test).
-- **Features**: 10,000 (7,000 real, 3,000 probes).
-- **Classes**: Two (cancer vs. normal).
-- **Class Distribution**: Slightly imbalanced (e.g., 44 positive vs. 56 negative in training).
-- **Missing Values**: None.
+The Swarm Behaviour consists of:
+- **Instances**: 24,016.
+- **Features**: 2,400.
+- **Classes**: Two (0 vs. 1 - Not Flocking vs. Flocking).
+- **Class Distribution**: balanced.
+- **Missing Values**: Yes.
 
 ### 2.2 Preprocessing Steps
 - **Load Data**: Import training, validation, and test sets from the UCI repository.
@@ -31,7 +32,7 @@ Given the slight class imbalance, consider:
 - **Class Weighting**: Assign higher weights to the minority class during model training.
 
 ## 3. Feature Selection
-The Arcene dataset’s high dimensionality necessitates feature selection to reduce overfitting, improve computational efficiency, and eliminate irrelevant probe features. The following methods are implemented:
+The Swarm Behaviour’s high dimensionality necessitates feature selection to reduce overfitting, improve computational efficiency, and eliminate irrelevant probe features. The following methods are implemented:
 
 ### 3.1 Filter Methods
 - **Variance Threshold**: Remove features with low variance, as they are unlikely to be informative.
@@ -42,7 +43,7 @@ The Arcene dataset’s high dimensionality necessitates feature selection to red
 - **Forward Selection**: Start with no features and iteratively add the most informative ones based on model performance.
 
 ### 3.3 Embedded Methods
-- **L1 Regularization (Lasso)**: Train a linear SVM with an L1 penalty to shrink irrelevant feature coefficients to zero.
+- **L2 Regularization**: Train a linear SVM with an L2 penalty to shrink irrelevant feature coefficients to zero.
 - **Decision Tree Feature Importance**: Use Gini importance or information gain from decision trees to rank and select features.
 
 ### 3.4 Evaluation of Feature Selection
@@ -50,7 +51,7 @@ The Arcene dataset’s high dimensionality necessitates feature selection to red
 - Assess whether probe features are effectively removed by analyzing feature importance scores.
 - Evaluate the impact of feature selection on model performance in subsequent sections.
 
-## 4. Model Training and Evaluation (Without Feature Selection)
+## 4. Model Training and Evaluation
 ### 4.1 Decision Trees
 - **Implementation**: Use a standard decision tree classifier (e.g., scikit-learn’s `DecisionTreeClassifier`).
 - **Hyperparameter Tuning**: Tune parameters like maximum depth and minimum samples per leaf using 5-fold cross-validation on the training set.
@@ -65,8 +66,8 @@ The Arcene dataset’s high dimensionality necessitates feature selection to red
 - Compare decision tree and SVM performance on the original dataset.
 - Analyze which model handles the high-dimensional data better without feature selection.
 
-## 5. Model Training and Evaluation (With Feature Selection)
-- **Procedure**: For each feature selection method (variance threshold, correlation, RFE, L1 regularization, tree-based importance):
+## 5. Model Training and Evaluation
+- **Procedure**: For each feature selection method (variance threshold, mutual information, correlation, L2 regularization):
   - Select the reduced feature set.
   - Retrain decision trees and SVMs on the reduced dataset.
   - Evaluate performance on the validation set using the same metrics.
@@ -106,18 +107,13 @@ Ensemble methods combine multiple models to improve performance. The following m
   - Ensemble models (Random Forests, Bagged SVMs, AdaBoost, Gradient Boosting).
 
 ### Performance Comparison Table
-| Model | Feature Selection | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
-|-------|-------------------|----------|-----------|--------|----------|---------|
-| Decision Tree | None | - | - | - | - | - |
-| SVM | None | - | - | - | - | - |
-| Decision Tree | Variance Threshold | - | - | - | - | - |
-| SVM | Variance Threshold | - | - | - | - | - |
-| Decision Tree | RFE | - | - | - | - | - |
-| SVM | RFE | - | - | - | - | - |
-| Random Forest | None | - | - | - | - | - |
-| Bagged SVM | None | - | - | - | - | - |
-| AdaBoost | None | - | - | - | - | - |
-| Gradient Boosting | None | - | - | - | - | - |
+| Classifier    | Accuracy | Precision | Recall  | F1 Score | ROC AUC |
+|---------------|----------|-----------|---------|----------|---------|
+| DecisionTree  | 0.998751 | 0.998752   | 0.998751| 0.998751 | 0.998751|
+| LinearSVC     | 1.000000 | 1.000000   | 1.000000| 1.000000 | 1.000000|
+| BaggingDT     | 1.000000 | 1.000000   | 1.000000| 1.000000 | 1.000000|
+| BaggingLSVC   | 1.000000 | 1.000000   | 1.000000| 1.000000 | 1.000000|
+| AdaBoostDT    | 1.000000 | 1.000000   | 1.000000| 1.000000 | 1.000000|
 
 *Note*: Values will be filled in after experiments.
 
