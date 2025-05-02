@@ -54,3 +54,4 @@ images/*.gif
 
 # google drive service account
 gdrive-sa.json
+/data
